@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - FacilityLeasing.API
 
 on:
@@ -19,19 +16,19 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x' 
+          dotnet-version: '9.x'
 
       - name: Build FacilityLeasing.API
-        run: dotnet build FacilityLeasing.API/FacilityLeasing.API.csproj --configuration Release
+        run: dotnet build FacilityLeasing/FacilityLeasing.API/FacilityLeasing.API.csproj --configuration Release
 
       - name: Publish FacilityLeasing.API
-        run: dotnet publish FacilityLeasing.API/FacilityLeasing.API.csproj -c Release -o ${{github.workspace}}/output
+        run: dotnet publish FacilityLeasing/FacilityLeasing.API/FacilityLeasing.API.csproj -c Release -o ./output
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: api-artifact
-          path: ${{github.workspace}}/output
+          path: ./output
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,6 +48,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'facilityleasing'
-          slot-name: 'Production' 
-          package: ${{github.workspace}}/output
+          slot-name: 'Production'
+          package: ./output
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3CB186CCBF7469E9867F092388C64D0 }}
