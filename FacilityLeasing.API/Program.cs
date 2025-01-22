@@ -37,12 +37,12 @@ if (!(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "").Equals
         dbContext.Database.Migrate();
     }
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.MapOpenApi(); // url to see the doc: /openapi/v1.json 
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseExceptionHandler(); // Converts unhandled exceptions into Problem Details responses
 app.UseStatusCodePages(); // Returns the Problem Details response for (empty) non-successful responses
